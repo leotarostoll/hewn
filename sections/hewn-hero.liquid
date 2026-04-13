@@ -1,0 +1,228 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+{%- endstyle -%}
+
+<div class="hewn-hero full-width">
+  <div class="hewn-hero__glow"></div>
+  <div class="hewn-hero__grid"></div>
+
+  {%- comment -%} Background image (optional) {%- endcomment -%}
+  {%- if section.settings.image != blank -%}
+    <div class="hewn-hero__bg-media">
+      {{
+        section.settings.image
+        | image_url: width: 2000
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          class: 'hewn-hero__bg-img',
+          widths: '750, 1100, 1500, 2000',
+          sizes: '100vw'
+      }}
+      <div class="hewn-hero__bg-overlay"></div>
+    </div>
+  {%- endif -%}
+
+  <div class="hewn-hero__inner">
+    {%- comment -%} Text column {%- endcomment -%}
+    <div class="hewn-hero__text">
+      {%- if section.settings.chip != blank -%}
+        <div class="hewn-chip">{{ section.settings.chip }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="hewn-hero__heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="hewn-hero__sub">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+
+      <div class="hewn-hero__actions">
+        {%- if section.settings.primary_label != blank -%}
+          <a href="{{ section.settings.primary_link | default: '/collections/all' }}" class="hewn-btn hewn-btn--primary">
+            {{ section.settings.primary_label }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.secondary_label != blank -%}
+          <a href="{{ section.settings.secondary_link | default: '#' }}" class="hewn-btn hewn-btn--ghost">
+            {{ section.settings.secondary_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} Product visual column {%- endcomment -%}
+    <div class="hewn-hero__visual">
+      <div class="hewn-hero__orb"></div>
+      {%- if section.settings.product_image != blank -%}
+        {{
+          section.settings.product_image
+          | image_url: width: 900
+          | image_tag:
+            loading: 'eager',
+            class: 'hewn-hero__product-img',
+            widths: '450, 700, 900',
+            sizes: '(max-width: 749px) 70vw, 45vw',
+            alt: section.settings.product_image.alt | escape
+        }}
+      {%- else -%}
+        <div class="hewn-hero__placeholder-img">
+          {{ 'product-1' | placeholder_svg_tag }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Stats strip {%- endcomment -%}
+  <div class="hewn-hero__stats">
+    {%- for i in (1..4) -%}
+      {%- liquid
+        assign stat_value = 'stat_' | append: i | append: '_value'
+        assign stat_label = 'stat_' | append: i | append: '_label'
+      -%}
+      {%- if section.settings[stat_value] != blank -%}
+        <div class="hewn-hero__stat">
+          <span class="hewn-hero__stat-value">{{ section.settings[stat_value] }}</span>
+          <span class="hewn-hero__stat-label">{{ section.settings[stat_label] }}</span>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "chip",
+      "label": "Chip label",
+      "default": "Peptide Skincare"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Science,\nSimplified."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Injectable-grade peptides. No needles required."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Shop the Routine"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Learn the Science"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Hero product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image (optional)"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Background overlay opacity",
+      "min": 50,
+      "max": 95,
+      "step": 5,
+      "unit": "%",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Stats strip"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_value",
+      "label": "Stat 1 value",
+      "default": "2"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 label",
+      "default": "Steps in your routine"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_value",
+      "label": "Stat 2 value",
+      "default": "94%"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 label",
+      "default": "Saw visible results in 4 weeks"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_value",
+      "label": "Stat 3 value",
+      "default": "0"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Stat 3 label",
+      "default": "Needles required"
+    },
+    {
+      "type": "text",
+      "id": "stat_4_value",
+      "label": "Stat 4 value",
+      "default": "GHK-Cu"
+    },
+    {
+      "type": "text",
+      "id": "stat_4_label",
+      "label": "Stat 4 label",
+      "default": "Copper peptide grade"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

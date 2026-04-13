@@ -9,12 +9,27 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
+    "hewn-hero": {
+      "type": "hewn-hero",
+      "settings": {}
+    },
+    "hewn-routine": {
+      "type": "hewn-routine",
+      "settings": {}
+    },
+    "hewn-bento": {
+      "type": "hewn-bento",
+      "settings": {}
+    },
+    "hewn-hair": {
+      "type": "hewn-hair",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "hewn-hero",
+    "hewn-routine",
+    "hewn-bento",
+    "hewn-hair"
   ]
 }

@@ -1,50 +1,189 @@
 {% comment %}
-  This section is used in the product template to render product page with
-  media, content, and add-to-cart form.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/product
+  Hewn product page — main section.
+  Renders image gallery on the left, product info + add-to-cart on the right.
 {% endcomment %}
 
-<div class="product-images">
-  {% for image in product.images %}
-    {% render 'image', class: 'product-image', image: image %}
-  {% endfor %}
-</div>
+<div class="hewn-product">
 
-<div class="product-info">
-  <h1>{{ product.title }}</h1>
-  <p>{{ product.price | money }}</p>
-  <p>{{ product.description }}</p>
-</div>
+  {%- comment -%} ── Gallery ── {%- endcomment -%}
+  <div class="hewn-product__gallery">
+    <div class="hewn-product__main-image">
+      {%- if product.featured_image -%}
+        {{
+          product.featured_image
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            id: 'hewn-featured-image',
+            class: 'hewn-product__featured-img',
+            widths: '600, 900, 1200',
+            sizes: '(max-width: 749px) 100vw, 55vw',
+            alt: product.featured_image.alt | escape
+        }}
+      {%- else -%}
+        <div class="hewn-product__img-placeholder">
+          {{ 'product-1' | placeholder_svg_tag }}
+        </div>
+      {%- endif -%}
+    </div>
 
-<div class="product-form">
-  {% form 'product', product %}
-    {% assign current_variant = product.selected_or_first_available_variant %}
+    {%- if product.images.size > 1 -%}
+      <div class="hewn-product__thumbnails" role="list">
+        {%- for image in product.images limit: 6 -%}
+          <button
+            class="hewn-product__thumb{% if forloop.first %} active{% endif %}"
+            data-image-src="{{ image | image_url: width: 1200 }}"
+            data-image-alt="{{ image.alt | escape }}"
+            aria-label="View image {{ forloop.index }}"
+            role="listitem"
+          >
+            {{
+              image
+              | image_url: width: 200
+              | image_tag: loading: 'lazy', class: 'hewn-product__thumb-img', alt: image.alt | escape
+            }}
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
 
-    <select name="id">
-      {% for variant in product.variants %}
-        <option
-          value="{{ variant.id }}"
-          {% if variant == current_variant %}
-            selected="selected"
-          {% endif %}
+  {%- comment -%} ── Info ── {%- endcomment -%}
+  <div class="hewn-product__info">
+
+    {%- if product.type != blank -%}
+      <p class="hewn-eyebrow">{{ product.type }}</p>
+    {%- elsif product.vendor != blank -%}
+      <p class="hewn-eyebrow">{{ product.vendor }}</p>
+    {%- endif -%}
+
+    <h1 class="hewn-product__title">{{ product.title }}</h1>
+
+    <p class="hewn-product__price" id="hewn-product-price">
+      {%- assign current_variant = product.selected_or_first_available_variant -%}
+      {%- if current_variant.compare_at_price > current_variant.price -%}
+        <span class="hewn-product__price--compare">{{ current_variant.compare_at_price | money }}</span>
+      {%- endif -%}
+      {{ current_variant.price | money }}
+    </p>
+
+    {%- if product.description != blank -%}
+      <div class="hewn-product__description">
+        {{ product.description }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.key_ingredients != blank -%}
+      <div class="hewn-product__ingredients">
+        <p class="hewn-product__ingredients-label">Key Ingredients</p>
+        <p class="hewn-product__ingredients-list">{{ section.settings.key_ingredients }}</p>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} ── Add to cart form ── {%- endcomment -%}
+    {%- form 'product', product, id: 'hewn-product-form' -%}
+
+      {%- if product.variants.size > 1 -%}
+        <div class="hewn-product__variants">
+          {%- for option in product.options_with_values -%}
+            <div class="hewn-product__option">
+              <label class="hewn-product__option-label" for="option-{{ option.name | handleize }}">
+                {{ option.name }}
+              </label>
+              <select
+                name="id"
+                id="option-{{ option.name | handleize }}"
+                class="hewn-product__select"
+              >
+                {%- for variant in product.variants -%}
+                  <option
+                    value="{{ variant.id }}"
+                    {%- if variant == current_variant %} selected="selected"{% endif %}
+                    {%- unless variant.available %} disabled{% endunless %}
+                  >
+                    {{ variant.title }}{% unless variant.available %} — Sold out{% endunless %}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+      {%- endif -%}
+
+      <div class="hewn-product__actions">
+        <div class="hewn-product__quantity">
+          <label for="hewn-quantity" class="visually-hidden">Quantity</label>
+          <input
+            type="number"
+            name="quantity"
+            id="hewn-quantity"
+            min="1"
+            value="1"
+            class="hewn-product__qty-input"
+          >
+        </div>
+        <button
+          type="submit"
+          class="hewn-btn hewn-btn--add-to-cart"
+          {% unless product.available %}disabled{% endunless %}
         >
-          {{ variant.title }} - {{ variant.price | money }}
-        </option>
-      {% endfor %}
-    </select>
+          {%- if product.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
+        </button>
+      </div>
 
-    <input type="text" name="quantity" min="1" value="1">
+      <div class="hewn-product__payment-btns">
+        {{ form | payment_button }}
+      </div>
 
-    <input type="submit" value="Add to cart">
-    {{ form | payment_button }}
-  {% endform %}
+    {%- endform -%}
+
+    {%- if section.settings.how_to_use != blank -%}
+      <div class="hewn-product__how-to-use">
+        <p class="hewn-product__ingredients-label">How to Use</p>
+        <p class="hewn-product__how-to-use-text">{{ section.settings.how_to_use }}</p>
+      </div>
+    {%- endif -%}
+
+  </div>
 </div>
+
+<script>
+  (function () {
+    var thumbs = document.querySelectorAll('.hewn-product__thumb');
+    var featuredImg = document.getElementById('hewn-featured-image');
+    if (!featuredImg) return;
+    thumbs.forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        featuredImg.src = this.dataset.imageSrc;
+        featuredImg.alt = this.dataset.imageAlt;
+        thumbs.forEach(function (t) { t.classList.remove('active'); });
+        this.classList.add('active');
+      });
+    });
+  })();
+</script>
 
 {% schema %}
 {
-  "name": "t:general.product",
-  "settings": [],
+  "name": "Product",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "key_ingredients",
+      "label": "Key ingredients (displayed below description)",
+      "info": "e.g. Copper Peptides, Vitamin E, Hyaluronic Acid"
+    },
+    {
+      "type": "textarea",
+      "id": "how_to_use",
+      "label": "How to use",
+      "info": "Brief application instructions shown below the add-to-cart button"
+    }
+  ],
   "disabled_on": {
     "groups": ["header", "footer"]
   }

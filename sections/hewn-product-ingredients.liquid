@@ -1,0 +1,94 @@
+{% comment %}
+  Ingredient breakdown section for product pages.
+  Each block = one ingredient with name + description.
+{% endcomment %}
+
+{%- if section.blocks.size > 0 -%}
+  <div class="hewn-product-ingredients">
+    <div class="hewn-product-ingredients__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="hewn-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="hewn-product-ingredients__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <p class="hewn-product-ingredients__intro">{{ section.settings.intro }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="hewn-product-ingredients__grid">
+      {%- for block in section.blocks -%}
+        <div class="hewn-product-ingredient" {{ block.shopify_attributes }}>
+          {%- if block.settings.name != blank -%}
+            <h3 class="hewn-product-ingredient__name">{{ block.settings.name }}</h3>
+          {%- endif -%}
+          {%- if block.settings.description != blank -%}
+            <p class="hewn-product-ingredient__desc">{{ block.settings.description }}</p>
+          {%- endif -%}
+          {%- if block.settings.benefit != blank -%}
+            <p class="hewn-product-ingredient__benefit">{{ block.settings.benefit }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Ingredients",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "What's Inside"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Key Ingredients."
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro copy",
+      "info": "Optional short paragraph below the heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Ingredient name",
+          "default": "Copper Peptides"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "A tripeptide-copper complex that signals skin to produce collagen and elastin, accelerating repair and renewal."
+        },
+        {
+          "type": "text",
+          "id": "benefit",
+          "label": "Key benefit (short)",
+          "default": "Collagen synthesis"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients"
+    }
+  ]
+}
+{% endschema %}

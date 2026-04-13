@@ -1,0 +1,100 @@
+<div class="hewn-hair full-width">
+  <div class="hewn-hair__inner">
+    <div class="hewn-hair__content">
+      {%- if section.settings.chip != blank -%}
+        <div class="hewn-chip">{{ section.settings.chip }}</div>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="hewn-hair__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <p class="hewn-hair__body">{{ section.settings.body }}</p>
+      {%- endif -%}
+      {%- liquid
+        assign hair_product = section.settings.product
+        if hair_product != blank
+          assign hair_url = hair_product.url
+        else
+          assign hair_url = section.settings.button_link | default: '/collections/all'
+        endif
+      -%}
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ hair_url }}" class="hewn-btn hewn-btn--ghost">
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="hewn-hair__image">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1000
+          | image_tag:
+            loading: 'lazy',
+            class: 'hewn-hair__img',
+            widths: '500, 750, 1000',
+            sizes: '(max-width: 749px) 100vw, 50vw',
+            alt: section.settings.image.alt | escape
+        }}
+      {%- else -%}
+        <div class="hewn-hair__img-placeholder">
+          {{ 'product-2' | placeholder_svg_tag }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hair Growth Spotlight",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "chip",
+      "label": "Chip label",
+      "default": "Beyond Skincare"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Peptides for\nHair Growth."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body copy",
+      "default": "The same peptide technology that transforms your skin is now targeting hair follicle health — stimulating growth at the root, without a single injection."
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Link to product (auto-resolves URL)"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop Hair Serum"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Fallback button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hair Growth Spotlight"
+    }
+  ]
+}
+{% endschema %}

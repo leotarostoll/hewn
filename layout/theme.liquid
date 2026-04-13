@@ -17,8 +17,16 @@
       {{ settings.type_primary_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
     {% endunless %}
 
+    {% # Google Fonts — Bodoni Moda (headings) + Jost (body) %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
     {% # Load and preload the critical CSS %}
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
+
+    {% # Hewn theme styles %}
+    {{ 'hewn.css' | asset_url | stylesheet_tag }}
 
     {% # Social, title, etc. %}
     {% render 'meta-tags' %}
@@ -27,9 +35,12 @@
   </head>
 
   <body>
+    <a href="#main-content" class="hewn-skip-link">Skip to content</a>
     {% sections 'header-group' %}
 
-    {{ content_for_layout }}
+    <main id="main-content">
+      {{ content_for_layout }}
+    </main>
 
     {% sections 'footer-group' %}
   </body>

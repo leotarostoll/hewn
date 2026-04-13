@@ -1,0 +1,178 @@
+<div class="hewn-routine">
+  <div class="hewn-routine__header">
+    {%- if section.settings.chip != blank -%}
+      <div class="hewn-chip">{{ section.settings.chip }}</div>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="hewn-routine__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="hewn-routine__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="hewn-routine__products">
+    {%- for i in (1..2) -%}
+      {%- liquid
+        assign step_image   = 'step_' | append: i | append: '_image'
+        assign step_label   = 'step_' | append: i | append: '_label'
+        assign step_desc    = 'step_' | append: i | append: '_description'
+        assign step_link    = 'step_' | append: i | append: '_link'
+        assign step_link_label = 'step_' | append: i | append: '_link_label'
+        assign step_product = 'step_' | append: i | append: '_product'
+        assign product_obj  = section.settings[step_product]
+      -%}
+
+      {%- liquid
+        if product_obj != blank
+          assign step_url   = product_obj.url
+          assign step_name  = product_obj.title
+          assign step_blurb = product_obj.description | strip_html | truncate: 110
+        else
+          assign step_url   = section.settings[step_link] | default: '/collections/all'
+          assign step_name  = section.settings[step_label]
+          assign step_blurb = section.settings[step_desc]
+        endif
+      -%}
+
+      <a href="{{ step_url }}" class="hewn-routine__step">
+        <div class="hewn-routine__step-image">
+          {%- if section.settings[step_image] != blank -%}
+            {{
+              section.settings[step_image]
+              | image_url: width: 800
+              | image_tag:
+                loading: 'lazy',
+                class: 'hewn-routine__img',
+                widths: '400, 600, 800',
+                sizes: '(max-width: 749px) 100vw, 50vw',
+                alt: step_name | escape
+            }}
+          {%- elsif product_obj != blank and product_obj.featured_image -%}
+            {{
+              product_obj.featured_image
+              | image_url: width: 800
+              | image_tag:
+                loading: 'lazy',
+                class: 'hewn-routine__img',
+                widths: '400, 600, 800',
+                sizes: '(max-width: 749px) 100vw, 50vw',
+                alt: step_name | escape
+            }}
+          {%- else -%}
+            <div class="hewn-routine__img-placeholder">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="hewn-routine__step-info">
+          <span class="hewn-routine__step-number">Step 0{{ i }}</span>
+          {%- if step_name != blank -%}
+            <h3 class="hewn-routine__step-name">{{ step_name }}</h3>
+          {%- endif -%}
+          {%- if step_blurb != blank -%}
+            <p class="hewn-routine__step-desc">{{ step_blurb }}</p>
+          {%- endif -%}
+          <span class="hewn-btn hewn-btn--text">
+            Shop Now &rarr;
+          </span>
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "The Routine",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "chip",
+      "label": "Chip label",
+      "default": "The Routine"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Two Steps."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "That's it. No 12-step routine. No guesswork."
+    },
+    {
+      "type": "header",
+      "content": "Step 1 — Cleanser"
+    },
+    {
+      "type": "product",
+      "id": "step_1_product",
+      "label": "Link to product (auto-fills title, description, URL)"
+    },
+    {
+      "type": "image_picker",
+      "id": "step_1_image",
+      "label": "Override product image"
+    },
+    {
+      "type": "text",
+      "id": "step_1_label",
+      "label": "Fallback product name",
+      "default": "Copper Peptide Cleanser"
+    },
+    {
+      "type": "textarea",
+      "id": "step_1_description",
+      "label": "Fallback description",
+      "default": "Gently removes impurities while copper peptides begin skin renewal at the cellular level."
+    },
+    {
+      "type": "url",
+      "id": "step_1_link",
+      "label": "Fallback link URL"
+    },
+    {
+      "type": "header",
+      "content": "Step 2 — Moisturizer"
+    },
+    {
+      "type": "product",
+      "id": "step_2_product",
+      "label": "Link to product (auto-fills title, description, URL)"
+    },
+    {
+      "type": "image_picker",
+      "id": "step_2_image",
+      "label": "Override product image"
+    },
+    {
+      "type": "text",
+      "id": "step_2_label",
+      "label": "Fallback product name",
+      "default": "Copper Peptide Moisture Complex"
+    },
+    {
+      "type": "textarea",
+      "id": "step_2_description",
+      "label": "Fallback description",
+      "default": "Delivers a concentrated dose of copper peptides and Vitamin E to restore, firm, and deeply hydrate."
+    },
+    {
+      "type": "url",
+      "id": "step_2_link",
+      "label": "Fallback link URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "The Routine"
+    }
+  ]
+}
+{% endschema %}

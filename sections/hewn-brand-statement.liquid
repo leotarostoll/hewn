@@ -1,0 +1,58 @@
+<div class="hewn-statement">
+  {%- if section.settings.eyebrow != blank -%}
+    <p class="hewn-eyebrow">{{ section.settings.eyebrow }}</p>
+  {%- endif -%}
+  {%- if section.settings.statement != blank -%}
+    <p class="hewn-statement__text">{{ section.settings.statement }}</p>
+  {%- endif -%}
+  {%- if section.settings.body != blank -%}
+    <p class="hewn-statement__body">{{ section.settings.body }}</p>
+  {%- endif -%}
+  {%- if section.settings.button_label != blank -%}
+    <a href="{{ section.settings.button_link }}" class="hewn-btn hewn-btn--text">
+      {{ section.settings.button_label }} &rarr;
+    </a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Brand Statement",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our Philosophy"
+    },
+    {
+      "type": "textarea",
+      "id": "statement",
+      "label": "Statement",
+      "default": "Peptide therapy used to require a needle. We changed that."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body copy",
+      "default": "Hewn formulates advanced peptide complexes that penetrate topically — delivering the same targeted results as injectables, with nothing more than a fingertip."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Link label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Statement"
+    }
+  ]
+}
+{% endschema %}
