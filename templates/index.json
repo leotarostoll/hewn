@@ -19,6 +19,7 @@
     },
     "hewn-bento": {
       "type": "hewn-bento",
+      "disabled": false,
       "settings": {}
     },
     "hewn-hair": {
