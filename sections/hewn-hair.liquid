@@ -1,3 +1,31 @@
+{%- liquid
+  assign hair_product_setting = section.settings.product
+  if hair_product_setting != blank
+    assign hair_product = hair_product_setting
+  else
+    assign hair_candidate = all_products['hair-regrowth-peptide-complex']
+    if hair_candidate.id != blank
+      assign hair_product = hair_candidate
+    endif
+  endif
+
+  if hair_product != blank
+    assign hair_url = hair_product.url
+    if section.settings.image != blank
+      assign hair_img = section.settings.image
+    elsif hair_product.featured_image != blank
+      assign hair_img = hair_product.featured_image
+    else
+      assign hair_img = nil
+    endif
+    assign hair_price = hair_product.price | money
+  else
+    assign hair_url = section.settings.button_link | default: '/collections/all'
+    assign hair_img = section.settings.image
+    assign hair_price = nil
+  endif
+-%}
+
 <div class="hewn-hair full-width">
   <div class="hewn-hair__inner">
     <div class="hewn-hair__content">
@@ -10,32 +38,29 @@
       {%- if section.settings.body != blank -%}
         <p class="hewn-hair__body">{{ section.settings.body }}</p>
       {%- endif -%}
-      {%- liquid
-        assign hair_product = section.settings.product
-        if hair_product != blank
-          assign hair_url = hair_product.url
-        else
-          assign hair_url = section.settings.button_link | default: '/collections/all'
-        endif
-      -%}
-      {%- if section.settings.button_label != blank -%}
-        <a href="{{ hair_url }}" class="hewn-btn hewn-btn--ghost">
-          {{ section.settings.button_label }}
-        </a>
-      {%- endif -%}
+      <div class="hewn-hair__footer">
+        {%- if hair_price != blank -%}
+          <span class="hewn-hair__price">{{ hair_price }}</span>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ hair_url }}" class="hewn-btn hewn-btn--ghost">
+            {{ section.settings.button_label }}
+          </a>
+        {%- endif -%}
+      </div>
     </div>
 
     <div class="hewn-hair__image">
-      {%- if section.settings.image != blank -%}
+      {%- if hair_img != nil -%}
         {{
-          section.settings.image
+          hair_img
           | image_url: width: 1000
           | image_tag:
             loading: 'lazy',
             class: 'hewn-hair__img',
             widths: '500, 750, 1000',
             sizes: '(max-width: 749px) 100vw, 50vw',
-            alt: section.settings.image.alt | escape
+            alt: section.settings.heading | escape
         }}
       {%- else -%}
         <div class="hewn-hair__img-placeholder">
@@ -72,7 +97,7 @@
     {
       "type": "product",
       "id": "product",
-      "label": "Link to product (auto-resolves URL)"
+      "label": "Link to product (auto-resolves URL and image)"
     },
     {
       "type": "text",
@@ -88,7 +113,7 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Product image"
+      "label": "Override product image"
     }
   ],
   "presets": [

@@ -12,45 +12,60 @@
   </div>
 
   <div class="hewn-routine__products">
+    {%- assign fallback_handles = 'charcoal-facial-cleanser,copper-peptide-moisture-complex' | split: ',' -%}
     {%- for i in (1..2) -%}
       {%- liquid
         assign step_image   = 'step_' | append: i | append: '_image'
         assign step_label   = 'step_' | append: i | append: '_label'
         assign step_desc    = 'step_' | append: i | append: '_description'
         assign step_link    = 'step_' | append: i | append: '_link'
-        assign step_link_label = 'step_' | append: i | append: '_link_label'
         assign step_product = 'step_' | append: i | append: '_product'
         assign product_obj  = section.settings[step_product]
+        assign fallback_handle = fallback_handles[forloop.index0]
       -%}
 
       {%- liquid
         if product_obj != blank
-          assign step_url   = product_obj.url
-          assign step_name  = product_obj.title
-          assign step_blurb = product_obj.description | strip_html | truncate: 110
+          assign p = product_obj
+        elsif fallback_handle != blank
+          assign p_candidate = all_products[fallback_handle]
+          if p_candidate.id != blank
+            assign p = p_candidate
+          else
+            assign p = nil
+          endif
+        else
+          assign p = nil
+        endif
+
+        if p != nil
+          assign step_url   = p.url
+          assign step_name  = p.title
+          assign step_blurb = p.description | strip_html | truncate: 120
+          assign step_price = p.price | money
+          assign step_type  = p.type
+          if section.settings[step_image] != blank
+            assign step_img = section.settings[step_image]
+          elsif p.featured_image != blank
+            assign step_img = p.featured_image
+          else
+            assign step_img = nil
+          endif
         else
           assign step_url   = section.settings[step_link] | default: '/collections/all'
           assign step_name  = section.settings[step_label]
           assign step_blurb = section.settings[step_desc]
+          assign step_price = nil
+          assign step_type  = nil
+          assign step_img   = section.settings[step_image]
         endif
       -%}
 
       <a href="{{ step_url }}" class="hewn-routine__step">
         <div class="hewn-routine__step-image">
-          {%- if section.settings[step_image] != blank -%}
+          {%- if step_img != nil -%}
             {{
-              section.settings[step_image]
-              | image_url: width: 800
-              | image_tag:
-                loading: 'lazy',
-                class: 'hewn-routine__img',
-                widths: '400, 600, 800',
-                sizes: '(max-width: 749px) 100vw, 50vw',
-                alt: step_name | escape
-            }}
-          {%- elsif product_obj != blank and product_obj.featured_image -%}
-            {{
-              product_obj.featured_image
+              step_img
               | image_url: width: 800
               | image_tag:
                 loading: 'lazy',
@@ -64,19 +79,25 @@
               {{ 'product-1' | placeholder_svg_tag }}
             </div>
           {%- endif -%}
+          <span class="hewn-routine__step-badge">Step 0{{ i }}</span>
         </div>
 
         <div class="hewn-routine__step-info">
-          <span class="hewn-routine__step-number">Step 0{{ i }}</span>
+          {%- if step_type != blank -%}
+            <span class="hewn-routine__step-type">{{ step_type }}</span>
+          {%- endif -%}
           {%- if step_name != blank -%}
             <h3 class="hewn-routine__step-name">{{ step_name }}</h3>
           {%- endif -%}
           {%- if step_blurb != blank -%}
             <p class="hewn-routine__step-desc">{{ step_blurb }}</p>
           {%- endif -%}
-          <span class="hewn-btn hewn-btn--text">
-            Shop Now &rarr;
-          </span>
+          <div class="hewn-routine__step-footer">
+            {%- if step_price != blank -%}
+              <span class="hewn-routine__step-price">{{ step_price }}</span>
+            {%- endif -%}
+            <span class="hewn-btn hewn-btn--text">Shop Now &rarr;</span>
+          </div>
         </div>
       </a>
     {%- endfor -%}
@@ -124,13 +145,13 @@
       "type": "text",
       "id": "step_1_label",
       "label": "Fallback product name",
-      "default": "Copper Peptide Cleanser"
+      "default": "Charcoal Facial Cleanser"
     },
     {
       "type": "textarea",
       "id": "step_1_description",
       "label": "Fallback description",
-      "default": "Gently removes impurities while copper peptides begin skin renewal at the cellular level."
+      "default": "Activated charcoal draws out impurities while aloe vera soothes. A clean slate for everything that follows."
     },
     {
       "type": "url",
@@ -161,7 +182,7 @@
       "type": "textarea",
       "id": "step_2_description",
       "label": "Fallback description",
-      "default": "Delivers a concentrated dose of copper peptides and Vitamin E to restore, firm, and deeply hydrate."
+      "default": "Bioactive copper peptides and botanical extracts to support skin renewal. Lightweight enough for daily use."
     },
     {
       "type": "url",

@@ -1,47 +1,85 @@
 {% comment %}
-  This section is used in the collection template to render collection page
-  listing all products within a collection.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
+  Hewn collection page — product grid.
+  Clean 3-col grid matching the site's dark aesthetic.
 {% endcomment %}
 
-<h1>{{ collection.title }}</h1>
+<div class="hewn-collection">
 
-<div class="collection-products">
-  {% paginate collection.products by 20 %}
-    {% for product in collection.products %}
-      <div class="collection-product">
-        {% if product.featured_image %}
-          {% render 'image',
-            class: 'collection-product__image',
-            image: product.featured_image,
-            url: product.url,
-            width: 400,
-            height: 400,
-            crop: 'center'
-          %}
-        {% endif %}
-        <div class="collection-product__content">
-          <p>{{ product.title | escape | link_to: product.url }}</p>
-          <p>{{ product.price | money }}</p>
-        </div>
+  <div class="hewn-collection__header">
+    <div class="hewn-collection__header-left">
+      {%- if collection.image -%}
+        {%- comment -%} Optional: chip with collection handle {%- endcomment -%}
+      {%- endif -%}
+      <h1 class="hewn-collection__title">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <p class="hewn-collection__description">{{ collection.description }}</p>
+      {%- endif -%}
+    </div>
+    <p class="hewn-collection__count">
+      {{ collection.products_count }}
+      {%- if collection.products_count == 1 %} product{%- else %} products{%- endif -%}
+    </p>
+  </div>
+
+  {%- paginate collection.products by 24 -%}
+    <div class="hewn-collection__grid">
+      {%- for product in collection.products -%}
+        <a href="{{ product.url }}" class="hewn-product-card">
+
+          <div class="hewn-product-card__image">
+            {%- if product.featured_image -%}
+              {{
+                product.featured_image
+                | image_url: width: 800
+                | image_tag:
+                  loading: 'lazy',
+                  class: 'hewn-product-card__img',
+                  widths: '400, 600, 800',
+                  sizes: '(max-width: 749px) 50vw, 33vw',
+                  alt: product.featured_image.alt | escape
+              }}
+            {%- else -%}
+              <div class="hewn-product-card__placeholder">
+                {{ 'product-1' | placeholder_svg_tag }}
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="hewn-product-card__info">
+            {%- if product.type != blank -%}
+              <span class="hewn-product-card__type">{{ product.type }}</span>
+            {%- endif -%}
+            <h2 class="hewn-product-card__name">{{ product.title }}</h2>
+            {%- if product.description != blank -%}
+              <p class="hewn-product-card__desc">
+                {{ product.description | strip_html | truncate: 90 }}
+              </p>
+            {%- endif -%}
+            <div class="hewn-product-card__footer">
+              <span class="hewn-product-card__price">
+                {%- if product.price_varies -%}From {%- endif -%}
+                {{ product.price_min | money }}
+              </span>
+              <span class="hewn-product-card__cta">View &rarr;</span>
+            </div>
+          </div>
+
+        </a>
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      <div class="hewn-collection__pagination">
+        {{ paginate | default_pagination }}
       </div>
-    {% endfor %}
+    {%- endif -%}
+  {%- endpaginate -%}
 
-    {{ paginate | default_pagination }}
-  {% endpaginate %}
 </div>
-
-{% stylesheet %}
-  .collection-products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  }
-{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.collection",
+  "name": "Collection",
   "settings": []
 }
 {% endschema %}
