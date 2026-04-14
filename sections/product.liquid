@@ -1,6 +1,6 @@
 {% comment %}
   Hewn product page — main section.
-  Renders image gallery on the left, product info + add-to-cart on the right.
+  Gallery left, product info right. Accordion for details below the form.
 {% endcomment %}
 
 <div class="hewn-product">
@@ -53,9 +53,7 @@
   <div class="hewn-product__info">
 
     {%- if product.type != blank -%}
-      <p class="hewn-eyebrow">{{ product.type }}</p>
-    {%- elsif product.vendor != blank -%}
-      <p class="hewn-eyebrow">{{ product.vendor }}</p>
+      <div class="hewn-chip">{{ product.type }}</div>
     {%- endif -%}
 
     <h1 class="hewn-product__title">{{ product.title }}</h1>
@@ -74,13 +72,6 @@
       </div>
     {%- endif -%}
 
-    {%- if section.settings.key_ingredients != blank -%}
-      <div class="hewn-product__ingredients">
-        <p class="hewn-product__ingredients-label">Key Ingredients</p>
-        <p class="hewn-product__ingredients-list">{{ section.settings.key_ingredients }}</p>
-      </div>
-    {%- endif -%}
-
     {%- comment -%} ── Add to cart form ── {%- endcomment -%}
     {%- form 'product', product, id: 'hewn-product-form' -%}
 
@@ -91,11 +82,7 @@
               <label class="hewn-product__option-label" for="option-{{ option.name | handleize }}">
                 {{ option.name }}
               </label>
-              <select
-                name="id"
-                id="option-{{ option.name | handleize }}"
-                class="hewn-product__select"
-              >
+              <select name="id" id="option-{{ option.name | handleize }}" class="hewn-product__select">
                 {%- for variant in product.variants -%}
                   <option
                     value="{{ variant.id }}"
@@ -140,12 +127,58 @@
 
     {%- endform -%}
 
-    {%- if section.settings.how_to_use != blank -%}
-      <div class="hewn-product__how-to-use">
-        <p class="hewn-product__ingredients-label">How to Use</p>
-        <p class="hewn-product__how-to-use-text">{{ section.settings.how_to_use }}</p>
-      </div>
-    {%- endif -%}
+    {%- comment -%} ── Accordion details ── {%- endcomment -%}
+    <div class="hewn-product__accordion">
+
+      {%- if section.settings.directions != blank -%}
+        <details class="hewn-accordion">
+          <summary class="hewn-accordion__trigger">
+            <span>Directions</span>
+            <span class="hewn-accordion__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="hewn-accordion__body">
+            <p>{{ section.settings.directions }}</p>
+          </div>
+        </details>
+      {%- endif -%}
+
+      {%- if section.settings.full_ingredients != blank -%}
+        <details class="hewn-accordion">
+          <summary class="hewn-accordion__trigger">
+            <span>Full Ingredient List</span>
+            <span class="hewn-accordion__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="hewn-accordion__body">
+            <p class="hewn-accordion__ingredients">{{ section.settings.full_ingredients }}</p>
+          </div>
+        </details>
+      {%- endif -%}
+
+      {%- if section.settings.product_details != blank -%}
+        <details class="hewn-accordion">
+          <summary class="hewn-accordion__trigger">
+            <span>Product Details</span>
+            <span class="hewn-accordion__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="hewn-accordion__body">
+            <p>{{ section.settings.product_details }}</p>
+          </div>
+        </details>
+      {%- endif -%}
+
+      {%- if section.settings.warning != blank -%}
+        <details class="hewn-accordion">
+          <summary class="hewn-accordion__trigger">
+            <span>Safety Information</span>
+            <span class="hewn-accordion__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="hewn-accordion__body">
+            <p>{{ section.settings.warning }}</p>
+          </div>
+        </details>
+      {%- endif -%}
+
+    </div>
 
   </div>
 </div>
@@ -173,15 +206,27 @@
   "settings": [
     {
       "type": "textarea",
-      "id": "key_ingredients",
-      "label": "Key ingredients (displayed below description)",
-      "info": "e.g. Copper Peptides, Vitamin E, Hyaluronic Acid"
+      "id": "directions",
+      "label": "Directions",
+      "info": "How to use — shown in accordion"
     },
     {
       "type": "textarea",
-      "id": "how_to_use",
-      "label": "How to use",
-      "info": "Brief application instructions shown below the add-to-cart button"
+      "id": "full_ingredients",
+      "label": "Full ingredient list",
+      "info": "Complete INCI list — shown in accordion"
+    },
+    {
+      "type": "text",
+      "id": "product_details",
+      "label": "Product details",
+      "info": "Size, weight, origin — shown in accordion"
+    },
+    {
+      "type": "textarea",
+      "id": "warning",
+      "label": "Safety information",
+      "info": "Warning text — shown in accordion"
     }
   ],
   "disabled_on": {

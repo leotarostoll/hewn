@@ -1,0 +1,75 @@
+{
+  "sections": {
+    "product-main": {
+      "type": "product",
+      "settings": {
+        "directions": "Apply a few drops of serum directly to the scalp. Gently massage in using your fingertips for 1–2 minutes to ensure even distribution. Use as part of your daily hair care routine.",
+        "full_ingredients": "Water, Glycerin, Lecithin, Propanediol, Arginine, Caprylyl Glycol, Citric Acid, Eucalyptus Globulus Leaf Extract, Tocopherol, sh-Polypeptide-11, sh-Polypeptide-1, sh-Oligopeptide-2, sh-Oligopeptide-10, sh-Polypeptide-9, Lactic Acid, Glycine Soja (Soybean) Germ Extract, Triticum Vulgare (Wheat) Germ Extract, Scutellaria Baicalensis Root Extract, Sodium Benzoate, Gluconolactone, Calcium Gluconate, Potassium Sorbate, Rosmarinus Officinalis (Rosemary) Extract, Xanthan Gum, Sodium Gluconate, Serenoa Repens (Saw Palmetto) Extract.",
+        "product_details": "1 fl oz / 30 ml · 0.18 lb / 81.2 g · Made in the USA",
+        "warning": "For external use only. Keep out of reach of children. Store in a cool, dry place."
+      }
+    },
+    "product-story": {
+      "type": "hewn-product-story",
+      "settings": {
+        "eyebrow": "The Complex",
+        "heading": "Five Peptides,\nOne Scalp Goal.",
+        "body": "The Hair Regrowth Peptide Complex isn't built around a single active — it's a layered formula. Five signal peptides work in concert to support the scalp environment and hair follicle activity, complemented by Arginine, Saw Palmetto, and Scutellaria Baicalensis for broader scalp nourishment. Eucalyptus and rosemary extracts add a refreshing touch while contributing to overall scalp health.",
+        "body_2": "Applied directly to the scalp with a brief massage, the lightweight serum absorbs quickly and fits into any existing hair care routine without interfering with styling. No clinic visits. No complicated protocols. Just consistent, daily care.",
+        "image_position": "left"
+      }
+    },
+    "product-ingredients": {
+      "type": "hewn-product-ingredients",
+      "settings": {
+        "eyebrow": "What's Inside",
+        "heading": "The Peptide Complex.",
+        "intro": "Five signal peptides, each playing a distinct role in supporting the scalp environment and the appearance of healthy hair."
+      },
+      "blocks": {
+        "polypeptide-1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "sh-Polypeptide-1",
+            "description": "A signal peptide that mimics naturally occurring growth factors in the scalp environment. Designed to communicate with scalp cells to support the conditions required for healthy hair follicle activity.",
+            "benefit": "Follicle signalling"
+          }
+        },
+        "polypeptide-11": {
+          "type": "ingredient",
+          "settings": {
+            "name": "sh-Polypeptide-11",
+            "description": "Works synergistically within the peptide blend to help maintain a healthy scalp surface environment. Contributes to overall scalp conditioning as part of the serum's multi-peptide approach.",
+            "benefit": "Scalp conditioning"
+          }
+        },
+        "oligopeptide-2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "sh-Oligopeptide-2",
+            "description": "A short-chain peptide that mirrors the activity of epidermal growth factors. Supports the scalp's natural cellular renewal process, contributing to a healthier-looking scalp over time.",
+            "benefit": "Cellular renewal"
+          }
+        },
+        "oligopeptide-10": {
+          "type": "ingredient",
+          "settings": {
+            "name": "sh-Oligopeptide-10",
+            "description": "Included in the formula to help support the appearance of hair density and volume. Works in concert with the other oligopeptides to contribute to fuller-looking hair.",
+            "benefit": "Density support"
+          }
+        },
+        "polypeptide-9": {
+          "type": "ingredient",
+          "settings": {
+            "name": "sh-Polypeptide-9",
+            "description": "Rounds out the serum's five-peptide complex, contributing to a comprehensive approach to scalp and hair follicle care. Its presence completes the multi-signal peptide blend.",
+            "benefit": "Multi-signal complex"
+          }
+        }
+      },
+      "block_order": ["polypeptide-1", "polypeptide-11", "oligopeptide-2", "oligopeptide-10", "polypeptide-9"]
+    }
+  },
+  "order": ["product-main", "product-story", "product-ingredients"]
+}

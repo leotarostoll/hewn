@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "product-main": {
+      "type": "product",
+      "settings": {
+        "directions": "Wet skin with warm water. Massage a small amount onto face, working into a lather. Rinse well. Use daily.",
+        "full_ingredients": "Organic Aloe Barbadensis Leaf Juice, Vegetable Glycerin, Coconut Oil Ethers, Cocamidopropyl Betaine, Guar Gum, Activated Charcoal, Ethylhexylglycerin, Phenoxyethanol, Melaleuca Alternifolia (Tea Tree) Leaf Oil*, Tocopherol. *Organic",
+        "product_details": "2 fl oz · 0.15 lb / 69 g · Made in the USA",
+        "warning": "For external use only. Not intended for ingestion. If pregnant or breastfeeding, consult a healthcare professional before use. Discontinue use immediately if irritation occurs."
+      }
+    },
+    "product-story": {
+      "type": "hewn-product-story",
+      "settings": {
+        "eyebrow": "Step One",
+        "heading": "Clean Without\nCompromising.",
+        "body": "The Charcoal Facial Cleanser is built around a simple principle: remove what doesn't belong without stripping what does. Activated charcoal draws out daily buildup of dirt, excess oil, and environmental residue, while organic aloe vera and glycerin ensure the skin barrier stays intact and comfortable after every wash.",
+        "body_2": "Paraben-free and formulated with organic ingredients, it's gentle enough for daily use and effective enough for post-workout sweat, sunscreen, and light makeup. A clean slate for whatever comes next.",
+        "image_position": "left"
+      }
+    },
+    "product-ingredients": {
+      "type": "hewn-product-ingredients",
+      "settings": {
+        "eyebrow": "What's Inside",
+        "heading": "Key Ingredients.",
+        "intro": "Two standout ingredients that define how this cleanser works — one to draw out, one to soothe."
+      },
+      "blocks": {
+        "activated-charcoal": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Activated Charcoal",
+            "description": "A highly porous, carbon-based ingredient with natural adsorptive properties. During cleansing, it binds to dirt, excess oil, and surface-level impurities so they rinse away cleanly — without disturbing the skin's natural moisture.",
+            "benefit": "Deep cleanse"
+          }
+        },
+        "aloe-vera": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Organic Aloe Vera",
+            "description": "Derived from the inner leaf gel of Aloe barbadensis, this organically sourced ingredient helps soothe and hydrate during cleansing. It counteracts any drying effects of the cleansing agents, leaving skin feeling calm and balanced after each wash.",
+            "benefit": "Soothing hydration"
+          }
+        }
+      },
+      "block_order": ["activated-charcoal", "aloe-vera"]
+    }
+  },
+  "order": ["product-main", "product-story", "product-ingredients"]
+}

@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "product-main": {
+      "type": "product",
+      "settings": {
+        "directions": "Apply a dime-sized amount to face and neck. Gently massage until fully absorbed. Use morning or night.",
+        "full_ingredients": "Aqua, Sorbitan Olivate, Cetearyl Olivate, Caprylic/Capric Triglyceride, Coco-Caprylate/Caprate, Cetyl Alcohol, Stearyl Alcohol, Methylglucoside Phosphate, Copper Lysinate/Prolinate, Vaccinium Macrocarpon (Cranberry) Fruit Extract, Eclipta Prostrata Extract, Moringa Oleifera Seed Extract, Melia Azadirachta (Neem) Leaf Extract, Glycerin, Aloe Barbadensis Leaf Juice, Tocopheryl Acetate, Totarol, Hamamelis Virginiana (Witch Hazel) Water, Xanthan Gum, Alcohol, Phenoxyethanol, Ethylhexylglycerin, Sodium Benzoate, Potassium Sorbate, Maltodextrin, Syringa Vulgaris (Lilac) Leaf Cell Culture Extract.",
+        "product_details": "1.7 fl oz / 50 ml · 0.15 lb / 68 g · Made in the USA",
+        "warning": "For external use only. Not intended for ingestion. Avoid contact with eyes. Discontinue use if irritation occurs. Keep out of reach of children. Store in a cool, dry place."
+      }
+    },
+    "product-story": {
+      "type": "hewn-product-story",
+      "settings": {
+        "eyebrow": "The Formula",
+        "heading": "Copper Peptides,\nMeet Botanicals.",
+        "body": "Most moisturizers hydrate the surface. The Copper Peptide Moisture Complex goes further — combining a bioactive copper peptide complex with a curated blend of plant extracts to support your skin's natural renewal process. Cranberry, moringa, and neem work alongside the peptides to nourish and protect, while aloe vera and witch hazel ensure the formula stays gentle enough for daily use on all skin types.",
+        "body_2": "Whether you apply it morning or night, this moisturizer is designed to fit seamlessly into your existing routine — no complexity, no guesswork. Just effective, purposeful skincare.",
+        "image_position": "left"
+      }
+    },
+    "product-ingredients": {
+      "type": "hewn-product-ingredients",
+      "settings": {
+        "eyebrow": "What's Inside",
+        "heading": "Active Ingredients.",
+        "intro": "A targeted blend of bioactive peptides and botanical extracts, each selected for a specific role in the formula."
+      },
+      "blocks": {
+        "copper-peptide": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Copper Lysinate/Prolinate",
+            "description": "A bioactive copper-binding peptide that works in harmony with the skin's natural processes. Copper is an essential trace mineral involved in the production of structural proteins that keep skin looking firm and healthy.",
+            "benefit": "Skin renewal"
+          }
+        },
+        "vitamin-e": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Vitamin E (Tocopheryl Acetate)",
+            "description": "A stable, fat-soluble antioxidant that helps protect the skin against environmental oxidative stress. Supports the skin barrier and helps condition skin texture with continued use.",
+            "benefit": "Antioxidant"
+          }
+        }
+      },
+      "block_order": ["copper-peptide", "vitamin-e"]
+    }
+  },
+  "order": ["product-main", "product-story", "product-ingredients"]
+}

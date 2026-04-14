@@ -1203,3 +1203,79 @@ body {
 @media (max-width: 749px) {
   .hewn-product-ingredients__grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================
+   PRODUCT ACCORDION
+   ============================================ */
+.hewn-product__accordion {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+  margin-top: 0.5rem;
+}
+
+.hewn-accordion {
+  border-bottom: 1px solid var(--border);
+}
+
+.hewn-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--text-muted);
+  transition: color var(--t-fast);
+  user-select: none;
+}
+.hewn-accordion__trigger::-webkit-details-marker { display: none; }
+.hewn-accordion__trigger:hover { color: var(--text); }
+.hewn-accordion[open] .hewn-accordion__trigger { color: var(--text); }
+
+.hewn-accordion__icon {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  flex-shrink: 0;
+}
+.hewn-accordion__icon::before,
+.hewn-accordion__icon::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+  border-radius: 1px;
+  transition: transform var(--t-fast), opacity var(--t-fast);
+}
+.hewn-accordion__icon::before {
+  width: 10px; height: 1px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.hewn-accordion__icon::after {
+  width: 1px; height: 10px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.hewn-accordion[open] .hewn-accordion__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  opacity: 0;
+}
+
+.hewn-accordion__body {
+  padding: 0 0 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+.hewn-accordion__body p { margin: 0; }
+.hewn-accordion__ingredients {
+  font-size: 0.78rem;
+  line-height: 1.9;
+  color: var(--text-subtle);
+}
