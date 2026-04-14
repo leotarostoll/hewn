@@ -37,6 +37,11 @@ body {
   font-family: var(--font-body);
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 /* ============================================
    ACCESSIBILITY
    ============================================ */
@@ -458,16 +463,26 @@ body {
 }
 
 @media (max-width: 749px) {
+  .hewn-hero { min-height: auto; }
   .hewn-hero__inner {
     grid-template-columns: 1fr;
-    padding: 3rem var(--page-margin, 20px) 2rem;
+    padding: 2rem var(--page-margin, 20px) 2.5rem;
+    gap: 2rem;
   }
-  .hewn-hero__visual { min-height: 300px; }
-  .hewn-hero__heading { font-size: clamp(3rem, 10vw, 4.5rem); }
+  /* Put product image above text on mobile */
+  .hewn-hero__visual {
+    order: -1;
+    min-height: 260px;
+  }
+  .hewn-hero__heading { font-size: clamp(2.5rem, 9vw, 4rem); }
+  .hewn-hero__sub { max-width: 100%; font-size: 0.9rem; }
   .hewn-hero__glow { right: 50%; transform: translate(50%, -50%); }
   .hewn-hero__stats { grid-template-columns: repeat(2, 1fr); }
+  .hewn-hero__stat { padding: 1.1rem 0; }
   .hewn-hero__stat:nth-child(2) { border-right: none; }
   .hewn-hero__stat:nth-child(3) { border-right: 1px solid var(--border); }
+  .hewn-hero__stat-value { font-size: 1.2rem; }
+  .hewn-hero__stat-label { font-size: 0.6rem; }
 }
 
 /* ============================================
@@ -664,8 +679,10 @@ body {
 }
 
 @media (max-width: 749px) {
-  .hewn-routine__products { grid-template-columns: 1fr; }
-  .hewn-routine { padding: 5rem 0; }
+  .hewn-routine { padding: 4rem var(--page-margin, 20px); gap: 2.5rem; }
+  .hewn-routine__heading { font-size: clamp(2rem, 8vw, 3rem); }
+  .hewn-routine__products { grid-template-columns: 1fr; gap: 1rem; }
+  .hewn-routine__step-image { aspect-ratio: 4 / 3; }
 }
 
 /* ============================================
@@ -813,8 +830,10 @@ body {
 }
 
 @media (max-width: 749px) {
+  .hewn-bento { padding: 4rem var(--page-margin, 20px); gap: 2rem; }
+  .hewn-bento__heading { font-size: clamp(2rem, 8vw, 3rem); }
   .hewn-bento__grid { grid-template-columns: 1fr; }
-  .hewn-bento { padding: 5rem 0; }
+  .hewn-bento-card { min-height: 160px; }
 }
 
 /* ============================================
@@ -898,8 +917,17 @@ body {
 
 @media (max-width: 749px) {
   .hewn-hair__inner { grid-template-columns: 1fr; }
-  .hewn-hair__content { padding: 4rem var(--page-margin, 20px); }
-  .hewn-hair__image { min-height: 340px; border-left: none; border-top: 1px solid var(--border); }
+  /* Image above content on mobile */
+  .hewn-hair__image {
+    order: -1;
+    min-height: 300px;
+    border-left: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .hewn-hair__content { padding: 3rem var(--page-margin, 20px); gap: 1.25rem; }
+  .hewn-hair__heading { font-size: clamp(2rem, 8vw, 3rem); }
+  .hewn-hair__body { max-width: 100%; }
+  .hewn-hair__footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
 }
 
 /* ============================================
@@ -1124,8 +1152,17 @@ body {
 .hewn-product__payment-btns { margin-top: -0.5rem; }
 
 @media (max-width: 749px) {
-  .hewn-product { grid-template-columns: 1fr; gap: 2.5rem; padding: 2rem 0 5rem; }
+  .hewn-product {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1.5rem var(--page-margin, 20px) 5rem;
+  }
   .hewn-product__gallery { position: static; }
+  .hewn-product__main-image { border-radius: var(--r-md); }
+  .hewn-product__title { font-size: clamp(1.5rem, 7vw, 2.25rem); }
+  .hewn-product__info { gap: 1.25rem; }
+  .hewn-product__actions { flex-wrap: wrap; }
+  .hewn-product__qty-input { width: 60px; }
 }
 
 /* ============================================
@@ -1179,8 +1216,13 @@ body {
 }
 
 @media (max-width: 749px) {
-  .hewn-product-story { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hewn-product-story {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 3.5rem var(--page-margin, 20px);
+  }
   .hewn-product-story--reversed .hewn-product-story__content { order: 0; }
+  .hewn-product-story__heading { font-size: clamp(1.5rem, 7vw, 2rem); }
 }
 
 /* ============================================
@@ -1256,7 +1298,12 @@ body {
 }
 
 @media (max-width: 749px) {
+  .hewn-product-ingredients {
+    padding: 3.5rem var(--page-margin, 20px);
+    gap: 2rem;
+  }
   .hewn-product-ingredients__grid { grid-template-columns: 1fr; }
+  .hewn-product-ingredients__heading { font-size: clamp(1.5rem, 7vw, 2rem); }
 }
 
 /* ============================================

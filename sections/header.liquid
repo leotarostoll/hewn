@@ -21,12 +21,6 @@
 
     {%- comment -%} Actions {%- endcomment -%}
     <div class="hewn-header__actions">
-      {%- if shop.customer_accounts_enabled -%}
-        <shopify-account menu="{{ section.settings.customer_account_menu }}" class="hewn-header__icon-btn" aria-label="Account">
-          {{ 'icon-account.svg' | inline_asset_content }}
-        </shopify-account>
-      {%- endif -%}
-
       <a href="{{ routes.cart_url }}" class="hewn-header__icon-btn hewn-header__cart" aria-label="Cart{% if cart.item_count > 0 %} ({{ cart.item_count }} item{{ cart.item_count | plural: '', 's' }}){% endif %}">
         {{ 'icon-cart.svg' | inline_asset_content }}
         {%- if cart.item_count > 0 -%}
