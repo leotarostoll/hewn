@@ -27,48 +27,48 @@
         "intro": "Five signal peptides, each playing a distinct role in supporting the scalp environment and the appearance of healthy hair."
       },
       "blocks": {
-        "polypeptide-1": {
+        "igf1": {
           "type": "ingredient",
           "settings": {
-            "name": "sh-Polypeptide-1",
-            "description": "A signal peptide that mimics naturally occurring growth factors in the scalp environment. Designed to communicate with scalp cells to support the conditions required for healthy hair follicle activity.",
+            "name": "IGF-1 (Insulin-like Growth Factor-1)",
+            "description": "A signal peptide that communicates with hair follicle cells to support the conditions required for healthy follicle activity. IGF-1 is one of the most studied growth factors in the context of scalp and hair biology.",
             "benefit": "Follicle signalling"
           }
         },
-        "polypeptide-11": {
+        "bfgf": {
           "type": "ingredient",
           "settings": {
-            "name": "sh-Polypeptide-11",
-            "description": "Works synergistically within the peptide blend to help maintain a healthy scalp surface environment. Contributes to overall scalp conditioning as part of the serum's multi-peptide approach.",
+            "name": "bFGF (Basic Fibroblast Growth Factor)",
+            "description": "Works synergistically within the peptide blend to help maintain a healthy scalp surface environment. bFGF plays a role in supporting cellular processes associated with skin and follicle health.",
             "benefit": "Scalp conditioning"
           }
         },
-        "oligopeptide-2": {
+        "egf": {
           "type": "ingredient",
           "settings": {
-            "name": "sh-Oligopeptide-2",
-            "description": "A short-chain peptide that mirrors the activity of epidermal growth factors. Supports the scalp's natural cellular renewal process, contributing to a healthier-looking scalp over time.",
+            "name": "EGF (Epidermal Growth Factor)",
+            "description": "A short-chain growth factor peptide that supports the scalp's natural cellular renewal process. EGF is involved in stimulating cell turnover, contributing to a healthier-looking scalp over time.",
             "benefit": "Cellular renewal"
           }
         },
-        "oligopeptide-10": {
+        "kgf": {
           "type": "ingredient",
           "settings": {
-            "name": "sh-Oligopeptide-10",
-            "description": "Included in the formula to help support the appearance of hair density and volume. Works in concert with the other oligopeptides to contribute to fuller-looking hair.",
+            "name": "KGF (Keratinocyte Growth Factor)",
+            "description": "Included in the formula to help support the appearance of hair density and volume. KGF specifically targets keratinocytes — the cells that make up the outer layer of the scalp and the hair shaft itself.",
             "benefit": "Density support"
           }
         },
-        "polypeptide-9": {
+        "vegf": {
           "type": "ingredient",
           "settings": {
-            "name": "sh-Polypeptide-9",
-            "description": "Rounds out the serum's five-peptide complex, contributing to a comprehensive approach to scalp and hair follicle care. Its presence completes the multi-signal peptide blend.",
-            "benefit": "Multi-signal complex"
+            "name": "VEGF (Vascular Endothelial Growth Factor)",
+            "description": "Rounds out the serum's five-peptide complex. VEGF supports healthy microcirculation in the scalp, helping to ensure follicles are well-nourished as part of the multi-signal peptide approach.",
+            "benefit": "Scalp circulation"
           }
         }
       },
-      "block_order": ["polypeptide-1", "polypeptide-11", "oligopeptide-2", "oligopeptide-10", "polypeptide-9"]
+      "block_order": ["igf1", "bfgf", "egf", "kgf", "vegf"]
     }
   },
   "order": ["product-main", "product-story", "product-ingredients"]

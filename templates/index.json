@@ -19,8 +19,10 @@
     },
     "hewn-bento": {
       "type": "hewn-bento",
-      "disabled": false,
-      "settings": {}
+      "settings": {
+        "metric_value": "2",
+        "metric_label": "steps to a complete skincare routine. Cleanser and moisturizer — nothing more."
+      }
     },
     "hewn-hair": {
       "type": "hewn-hair",

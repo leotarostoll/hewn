@@ -11,13 +11,13 @@
       {%- if product.featured_image -%}
         {{
           product.featured_image
-          | image_url: width: 1200
+          | image_url: width: 2000
           | image_tag:
             loading: 'eager',
             fetchpriority: 'high',
             id: 'hewn-featured-image',
             class: 'hewn-product__featured-img',
-            widths: '600, 900, 1200',
+            widths: '800, 1200, 1600, 2000',
             sizes: '(max-width: 749px) 100vw, 55vw',
             alt: product.featured_image.alt | escape
         }}
@@ -33,7 +33,7 @@
         {%- for image in product.images limit: 6 -%}
           <button
             class="hewn-product__thumb{% if forloop.first %} active{% endif %}"
-            data-image-src="{{ image | image_url: width: 1200 }}"
+            data-image-src="{{ image | image_url: width: 2000 }}"
             data-image-alt="{{ image.alt | escape }}"
             aria-label="View image {{ forloop.index }}"
             role="listitem"

@@ -12,20 +12,9 @@
     "product-main": {
       "type": "product",
       "settings": {}
-    },
-    "product-story": {
-      "type": "hewn-product-story",
-      "settings": {}
-    },
-    "product-ingredients": {
-      "type": "hewn-product-ingredients",
-      "settings": {},
-      "blocks": {}
     }
   },
   "order": [
-    "product-main",
-    "product-story",
-    "product-ingredients"
+    "product-main"
   ]
 }
